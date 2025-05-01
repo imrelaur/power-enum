@@ -1,0 +1,43 @@
+{
+    "name": "imrelaur/laravel-power-enum",
+    "description": "Laravel Power Enum",
+    "keywords": [
+        "laravel",
+        "enum",
+        "power-enum"
+    ],
+    "type": "package",
+    "require": {
+        "php": "^8.2",
+        "illuminate/support": "^10.0 || ^11.0 || ^12.0",
+        "illuminate/validation": "^10.0 || ^11.0 || ^12.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^11.0"
+    },
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "PowerEnum\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Imre Laur",
+            "email": "imre-w@hotmail.com"
+        }
+    ],
+    "config": {
+        "sort-packages": true
+    },
+    "scripts": {
+        "test": "@php vendor/bin/phpunit"
+    },
+    "minimum-stability": "stable",
+    "prefer-stable": true
+}
