@@ -62,9 +62,8 @@ class PowerEnumTest extends TestCase
 
         $expected = Arr::mapWithKeys(Status::cases(), fn ($case) => [$case->value => $case->getLabel()]);
         $result = Status::options();
-        $count = count(Status::cases());
 
-        self::assertCount($count, $result);
+        self::assertCount(Status::count(), $result);
         self::assertSame($expected, $result);
     }
 
@@ -75,9 +74,8 @@ class PowerEnumTest extends TestCase
 
         $expected = Arr::mapWithKeys(SocialLink::cases(), fn ($case) => [$case->value => Str::headline($case->name)]);
         $result = SocialLink::options();
-        $count = count(SocialLink::cases());
 
-        self::assertCount($count, $result);
+        self::assertCount(SocialLink::count(), $result);
         self::assertSame($expected, $result);
     }
 
@@ -88,6 +86,7 @@ class PowerEnumTest extends TestCase
         $result2 = SocialLink::options(only: [SocialLink::Blog]);
 
         self::assertCount(1, $result1);
+        self::assertCount(1, $result2);
         self::assertContains(SocialLink::Blog->name, $result1);
         self::assertContains(SocialLink::Blog->name, $result2);
     }
@@ -97,9 +96,10 @@ class PowerEnumTest extends TestCase
     {
         $result1 = SocialLink::options(except: SocialLink::Blog);
         $result2 = SocialLink::options(except: [SocialLink::Blog]);
-        $count = count(SocialLink::cases()) - 1;
+        $count = SocialLink::count() - 1;
 
         self::assertCount($count, $result1);
+        self::assertCount($count, $result2);
         self::assertNotContains(SocialLink::Blog->name, $result1);
         self::assertNotContains(SocialLink::Blog->name, $result2);
     }
@@ -115,7 +115,7 @@ class PowerEnumTest extends TestCase
         $names = Status::names();
 
         self::assertSame($expected, $names);
-        self::assertCount(count(Status::cases()), $names);
+        self::assertCount(Status::count(), $names);
     }
 
     #[Test]
@@ -141,7 +141,7 @@ class PowerEnumTest extends TestCase
     public function it_returns_except_names()
     {
         $result = SocialLink::names(except: SocialLink::Blog);
-        $count = count(SocialLink::cases()) - 1;
+        $count = SocialLink::count() - 1;
 
         self::assertCount($count, $result);
         self::assertNotContains(SocialLink::Blog->name, $result);
@@ -151,7 +151,7 @@ class PowerEnumTest extends TestCase
     public function it_returns_except_names_using_an_array()
     {
         $result = SocialLink::names(except: [SocialLink::Blog, SocialLink::Website]);
-        $count = count(SocialLink::cases()) - 2;
+        $count = SocialLink::count() - 2;
 
         self::assertCount($count, $result);
         self::assertNotContains(SocialLink::Blog->name, $result);
@@ -167,7 +167,7 @@ class PowerEnumTest extends TestCase
     {
         $expected = array_map(fn ($status) => $status->value, Status::cases());
         $values = Status::values();
-        $count = count(Status::cases());
+        $count = Status::count();
 
         self::assertCount($count, $values);
         self::assertSame($expected, $values);
@@ -196,7 +196,7 @@ class PowerEnumTest extends TestCase
     public function it_returns_except_values()
     {
         $result = SocialLink::values(except: SocialLink::Blog);
-        $count = count(SocialLink::cases()) - 1;
+        $count = SocialLink::count() - 1;
 
         self::assertCount($count, $result);
         self::assertNotContains(SocialLink::Blog->value, $result);
@@ -206,7 +206,7 @@ class PowerEnumTest extends TestCase
     public function it_returns_except_values_using_an_array()
     {
         $result = SocialLink::values(except: [SocialLink::Blog, SocialLink::Website]);
-        $count = count(SocialLink::cases()) - 2;
+        $count = SocialLink::count() - 2;
 
         self::assertCount($count, $result);
         self::assertNotContains(SocialLink::Blog->value, $result);
@@ -250,7 +250,7 @@ class PowerEnumTest extends TestCase
     public function it_returns_except_a_case()
     {
         $result = SocialLink::except(SocialLink::Blog);
-        $count = count(SocialLink::cases()) - 1;
+        $count = SocialLink::count() - 1;
 
         self::assertCount($count, $result);
         self::assertNotContains(SocialLink::Blog, $result);
@@ -260,7 +260,7 @@ class PowerEnumTest extends TestCase
     public function it_returns_except_multiple_cases()
     {
         $result = SocialLink::except(SocialLink::Blog, SocialLink::Website);
-        $count = count(SocialLink::cases()) - 2;
+        $count = SocialLink::count() - 2;
 
         self::assertCount($count, $result);
         self::assertNotContains(SocialLink::Blog, $result);
@@ -271,7 +271,7 @@ class PowerEnumTest extends TestCase
     public function it_returns_except_cases_using_an_array()
     {
         $result = SocialLink::except([SocialLink::Blog, SocialLink::Website]);
-        $count = count(SocialLink::cases()) - 2;
+        $count = SocialLink::count() - 2;
 
         self::assertCount($count, $result);
         self::assertNotContains(SocialLink::Blog, $result);
