@@ -3,6 +3,7 @@
 namespace Tests;
 
 use Illuminate\Support\Arr;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rules\Enum;
 use PHPUnit\Framework\Attributes\Test;
@@ -22,6 +23,32 @@ class PowerEnumTest extends TestCase
         $rule = Status::rule();
 
         self::assertInstanceOf(Enum::class, $rule);
+    }
+
+    /*
+     * Count
+     */
+
+    #[Test]
+    public function it_counts_cases()
+    {
+        $result = Status::count();
+
+        self::assertSame(3, $result);
+    }
+
+    /*
+     * Collection
+     */
+
+    #[Test]
+    public function it_returns_a_collection()
+    {
+        $result = Status::collect();
+
+        self::assertInstanceOf(Collection::class, $result);
+        self::assertCount(Status::count(), $result);
+        self::assertSame(Status::cases(), $result->all());
     }
 
     /*

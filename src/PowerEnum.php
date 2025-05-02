@@ -2,6 +2,7 @@
 
 namespace PowerEnum;
 
+use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rules\Enum;
 
@@ -17,6 +18,16 @@ trait PowerEnum
     public static function rule(): Enum
     {
         return new Enum(static::class);
+    }
+
+    public static function count(): int
+    {
+        return count(self::cases());
+    }
+
+    public static function collect(): Collection
+    {
+        return new Collection(static::cases());
     }
 
     /**
