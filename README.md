@@ -86,15 +86,11 @@ enum Status: string implements HasLabel
     }
 }
 
-// Using power enum in a form field.
-// App/Filament/Resources/UserResource.php
+// Using power enum in a select field.
 Select::make('status')
-  ->required()
-  ->options(Status::options(except: Status::Hidden));
-// OR
-Select::make('status')
-  ->required()
-  ->options(Status::options(only: [Status::Published, Status::Draft]));
+    ->options(Status::options(except: Status::Hidden)),
+    // OR
+    ->options(Status::options(only: [Status::Published, Status::Draft])),
 ```
 
 ## Methods
@@ -201,7 +197,7 @@ Status::options(except: Status::Hidden); // ['published' => 'Published', 'draft'
 
 #### Example: Using in a Filament form as a select field options
 
-You can use the `options` method to get options for select field, and optionally you can filter them using `only` or `except` properties.
+You can use the `options` method to get options for the select field. Optionally you can filter them using `only` or `except` parameters.
 
 ```php
 class PostResource extends Resource
