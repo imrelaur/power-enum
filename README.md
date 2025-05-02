@@ -52,9 +52,9 @@ enum Status: string
 {
     use PowerEnum;
 
-    case Published = 'published';
-    case Hidden = 'hidden';
     case Draft = 'draft';
+    case Hidden = 'hidden';
+    case Published = 'published';
 }
 ```
 
@@ -68,30 +68,33 @@ namespace App\Enums;
 use Filament\Support\Contracts\HasLabel;
 use PowerEnum\PowerEnum;
 
-enum UserStatus: string implements HasLabel
+enum Status: string implements HasLabel
 {
     use PowerEnum;
 
-    case Active = 'active';
-    case Blocked = 'blocked';
-    case Inactive = 'inactive';
+    case Draft = 'draft';
+    case Hidden = 'hidden';
+    case Published = 'published';
 
     public function getLabel(): string
     {
         return match ($this) {
-            self::Active => 'Active',
-            self::Blocked => 'Blocked',
-            self::InActive => 'Inactive',
+            self::Draft => 'Draft',
+            self::Hidden => 'Hidden',
+            self::Published => 'Published',
         };
     }
 }
 
+// Using power enum in a form field.
 // App/Filament/Resources/UserResource.php
-// Using the enum in a form field.
 Select::make('status')
   ->required()
-  ->options(UserStatus::options(except: UserStatus::Blocked));
-
+  ->options(Status::options(except: Status::Hidden));
+// OR
+Select::make('status')
+  ->required()
+  ->options(Status::options(only: [Status::Published, Status::Draft]));
 ```
 
 ## Methods
@@ -161,23 +164,60 @@ Status::values(except: Status::Hidden); // ['published', 'draft']
 Status::values(except: [Status::Hidden, Status::Draft]); // ['published']
 ```
 
+#### Example: Using in a Laravel Query Builder
+
+You can use the `values` method to filter the query builder results based on the enum values.
+
+```php
+class Post extends Model
+{
+    public function scopeVisible(Builder $query): void
+    {
+        $query->whereIn('status', Status::values(except: Status::Hidden));
+        // OR
+        $query->whereIn('status', Status::values(only: [Status::Published, Status::Draft]));
+    }
+}
+```
+
 ### options
 
 Returns an array of options for the enum, with the keys being the values of the enum and the values being the names of
 the enum.
 
 When `getLabel` method is implemented, it will be used to get the label for the enum value. Otherwise, the name of the
-enum value will be converted to a headline format, using `Str::headline` function
+enum will be converted to a headline format, using `Str::headline` function
 from [Laravel String helper class](https://laravel.com/docs/strings#method-str-headline).
 
 ```php
 Status::options(); // ['published' => 'Published', 'hidden' => 'Hidden', 'draft' => 'Draft']
 
 Status::options(only: Status::Published); // ['published' => 'Published']
-Status::options(except: Status::Hidden); // ['published' => 'Published', 'draft' => 'Draft']
-
 Status::options(only: [Status::Published, Status::Draft]); // ['published' => 'Published', 'draft' => 'Draft']
+
 Status::options(except: [Status::Hidden, Status::Draft]); // ['published' => 'Published']
+Status::options(except: Status::Hidden); // ['published' => 'Published', 'draft' => 'Draft']
+```
+
+#### Example: Using in a Filament form as a select field options
+
+You can use the `options` method to get options for select field, and optionally you can filter them using `only` or `except` properties.
+
+```php
+class PostResource extends Resource
+{
+    public static function form(Form $form): Form
+    {
+        return $form
+            ->schema([
+                Select::make('type')
+                    ->required()
+                    ->options(Status::options(except: Status::Hidden))
+                    // OR
+                    ->options(Status::options(only: [Status::Published, Status::Draft]))
+            ]);
+    }
+}
 ```
 
 ### only
@@ -186,9 +226,9 @@ Returns the enum cases only the ones provided. You can provide a single enum cas
 
 ```php
 Status::only(Status::Hidden); // [Status::Hidden]
-// OR
+
 Status::only(Status::Hidden, Status::Draft); // [Status::Hidden, Status::Draft]
-// OR
+
 Status::only([Status::Hidden, Status::Draft]); // [Status::Hidden, Status::Draft]
 ```
 
@@ -198,9 +238,9 @@ Returns the enum cases except the ones provided. You can provide a single enum c
 
 ```php
 Status::except(Status::Hidden); // [Status::Published, Status::Draft]
-// OR
+
 Status::except(Status::Hidden, Status::Draft); // [Status::Published]
-// OR
+
 Status::except([Status::Hidden, Status::Draft]); // [Status::Published]
 ```
 
