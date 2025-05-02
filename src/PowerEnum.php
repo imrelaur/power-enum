@@ -4,6 +4,7 @@ namespace PowerEnum;
 
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rules\Enum;
+
 use function request;
 
 trait PowerEnum
@@ -19,8 +20,8 @@ trait PowerEnum
     }
 
     /**
-     * @param self|array<self> $only
-     * @param self|array<self> $except
+     * @param  self|array<self>  $only
+     * @param  self|array<self>  $except
      * @return array<string|int, string>
      */
     public static function options(self|array $only = [], self|array $except = []): array
@@ -130,4 +131,3 @@ trait PowerEnum
         return ! in_array($this, is_array($cases) ? $cases : func_get_args());
     }
 }
-
