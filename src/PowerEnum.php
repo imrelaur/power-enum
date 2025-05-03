@@ -5,11 +5,30 @@ namespace PowerEnum;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rules\Enum;
+use ValueError;
 
 use function request;
 
 trait PowerEnum
 {
+    public static function tryFromName(string $name): ?self
+    {
+        $constant = self::class.'::'.$name;
+
+        return defined($constant) ? constant($constant) : null;
+    }
+
+    public static function fromName(string $name): self
+    {
+        $result = self::tryFromName($name);
+
+        if ($result === null) {
+            throw new ValueError('"'.$name.'" is not a valid backing name for enum "'.static::class.'"');
+        }
+
+        return $result;
+    }
+
     public static function fromRequest(string $key, ?self $default = null): ?self
     {
         return request()->enum($key, static::class) ?? $default;

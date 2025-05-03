@@ -10,9 +10,41 @@ use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 use Tests\Enums\SocialLink;
 use Tests\Enums\Status;
+use ValueError;
 
 class PowerEnumTest extends TestCase
 {
+    /*
+     * From Name
+     */
+
+    #[Test]
+    public function it_gets_from_name()
+    {
+        $case = Status::fromName('Published');
+
+        self::assertInstanceOf(Status::class, $case);
+        self::assertSame(Status::Published, $case);
+    }
+
+    #[Test]
+    public function it_throws_an_value_error_when_invalid_name_provided()
+    {
+        self::expectException(ValueError::class);
+        self::expectExceptionMessage('"invalid" is not a valid backing name for enum "Tests\Enums\Status"');
+
+        Status::fromName('invalid');
+    }
+
+    #[Test]
+    public function it_tries_from_name()
+    {
+        $case = Status::tryFromName('Published');
+
+        self::assertInstanceOf(Status::class, $case);
+        self::assertSame(Status::Published, $case);
+    }
+
     /*
      * Rule
      */

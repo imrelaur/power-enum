@@ -17,6 +17,8 @@ Table of Contents
     * [Power Enum in Laravel](#power-enum-in-laravel)
     * [Power Enum in Filament](#power-enum-in-filament)
 * [Methods](#methods)
+    * [fromName](#fromname)
+    * [tryFromName](#tryfromname)
     * [fromRequest](#fromrequest)
     * [rule](#rule)
     * [count](#count)
@@ -94,6 +96,26 @@ Select::make('status')
 ```
 
 ## Methods
+
+### fromName
+
+Returns the enum case from the enum name. When the name is missing or is invalid, then it throws a `ValueError` exception.
+
+```php
+Status::fromName('Published'); // Status::Published
+
+Status::fromName('invalid'); // throws \ValueError
+```
+
+### tryFromName
+
+Returns the enum case from the enum name. When the name is missing or is invalid, then it returns `null`.
+
+```php
+Status::tryFromName('Published'); // Status::Published
+
+Status::tryFromName('invalid'); // null
+```
 
 ### fromRequest
 
