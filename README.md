@@ -34,7 +34,7 @@ Table of Contents
 ## Install
 
 ```
-composer require imrelaur/laravel-power-enum
+composer require imrelaur/power-enum
 ```
 
 ## Usage
