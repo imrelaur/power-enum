@@ -4,8 +4,8 @@ Laravel Power Enum is a package that provides a powerful and flexible way to wor
 
 Works with [Laravel](https://laravel.com/) and [Filament PHP](https://filamentphp.com/). 
 
-[![Latest Stable Version](https://poser.pugx.org/imrelaur/laravel-power-enum/v/stable)](https://packagist.org/packages/imrelaur/laravel-power-enum)
-[![License](https://poser.pugx.org/imrelaur/laravel-power-enum/license)](https://packagist.org/packages/imrelaur/laravel-power-enum)
+[![Latest Stable Version](https://poser.pugx.org/imrelaur/power-enum/v/stable)](https://packagist.org/packages/imrelaur/power-enum)
+[![License](https://poser.pugx.org/imrelaur/power-enum/license)](https://packagist.org/packages/imrelaur/power-enum)
 [![PHP Version](https://img.shields.io/badge/PHP-%3E%3D%208.2-4F5B93.svg)](https://www.php.net/)
 [![Laravel Version](https://img.shields.io/badge/Laravel-%3E%3D%2010.0-FF2D20.svg)](https://laravel.com/)
 
