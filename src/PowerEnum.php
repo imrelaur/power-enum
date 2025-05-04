@@ -44,6 +44,9 @@ trait PowerEnum
         return count(self::cases());
     }
 
+    /**
+     * @return Collection<self>
+     */
     public static function collect(): Collection
     {
         return new Collection(static::cases());
@@ -113,6 +116,7 @@ trait PowerEnum
 
     /**
      * @param  self|array<self>  $cases
+     * @return array<self>
      */
     public static function only(self|array $cases): array
     {
@@ -123,6 +127,7 @@ trait PowerEnum
 
     /**
      * @param  self|array<self>  $cases
+     * @return array<self>
      */
     public static function except(self|array $cases): array
     {
