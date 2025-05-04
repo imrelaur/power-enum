@@ -28,7 +28,7 @@ class PowerEnumTest extends TestCase
     }
 
     #[Test]
-    public function it_throws_an_value_error_when_invalid_name_provided()
+    public function it_fails_getting_from_name_when_invalid_name_provided()
     {
         self::expectException(ValueError::class);
         self::expectExceptionMessage('"invalid" is not a valid backing name for enum "Tests\Enums\Status"');
