@@ -45,6 +45,14 @@ class PowerEnumTest extends TestCase
         self::assertSame(Status::Published, $case);
     }
 
+    #[Test]
+    public function it_tries_from_name_and_returns_null()
+    {
+        $case = Status::tryFromName('missing');
+
+        self::assertNull($case);
+    }
+
     /*
      * Rule
      */
