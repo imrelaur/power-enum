@@ -309,8 +309,16 @@ Status::Published->isNotAny([Status::Published, Status::Hidden]); // false
 Converts the enum name to a lowercased string. Useful when you have int based enums, and you want to convert non-lowercased enum name to a lowercased string as if they were string based enums.
 
 ```php
-Type::Admin->toLower(); // 'admin'
-Type::USER->toLower(); // 'user'
+enum Type: int
+{
+    use PowerEnum;
+
+    case ADMIN = 1;
+    case User = 2;
+}
+
+Type::ADMIN->toLower(); // 'admin'
+Type::User->toLower(); // 'user'
 ```
 
 #### Example: In a Resource
@@ -318,13 +326,13 @@ Type::USER->toLower(); // 'user'
 When using the enum in a resource, you can use the `toLower` method to convert the enum name to a lowercased string. This is useful when you want to display the enum name in a more readable format.
 
 ```php
-class UserResource
+class UserResource extends JsonResource
 {
-    function toArray(Request $request): array
+    public function toArray(Request $request): array
     {
         return [
             'id' => $this->id,
-            'type' => Type::Admin->toLower(), // Returns 'admin' instead of an integer. Readable and easier to understand.
+            'type' => Type::ADMIN->toLower(), // Return 'admin' instead of an integer.
             'name' => $this->name,
             'email' => $this->email,
         ];
@@ -337,6 +345,6 @@ class UserResource
 Converts the enum name to a uppercased string.
 
 ```php
-Type::Admin->toUpper(); // 'ADMIN'
-Type::user->toUpper(); // 'USER'
+Type::ADMIN->toUpper(); // 'ADMIN'
+Type::User->toUpper(); // 'USER'
 ```
