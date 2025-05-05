@@ -11,6 +11,10 @@ use function request;
 
 trait PowerEnum
 {
+    /**
+     * Returns the enum case from the enum name.
+     * When the name is not valid, it returns null.
+     */
     public static function tryFromName(string $name): ?self
     {
         $constant = self::class.'::'.$name;
@@ -18,6 +22,11 @@ trait PowerEnum
         return defined($constant) ? constant($constant) : null;
     }
 
+    /**
+     * Returns the enum case from the enum name.
+     *
+     * @throws ValueError
+     */
     public static function fromName(string $name): self
     {
         $result = self::tryFromName($name);
@@ -29,22 +38,34 @@ trait PowerEnum
         return $result;
     }
 
+    /**
+     * Returns the enum case from the request.
+     * Optionally, you can provide a default enum case.
+     */
     public static function fromRequest(string $key, ?self $default = null): ?self
     {
         return request()->enum($key, static::class) ?? $default;
     }
 
+    /**
+     * Returns the validation rule for the enum.
+     */
     public static function rule(): Enum
     {
         return new Enum(static::class);
     }
 
+    /**
+     * Counts the number of enum cases.
+     */
     public static function count(): int
     {
         return count(self::cases());
     }
 
     /**
+     * Returns the enum cases as a collection.
+     *
      * @return Collection<self>
      */
     public static function collect(): Collection
@@ -53,6 +74,10 @@ trait PowerEnum
     }
 
     /**
+     * Returns the enum cases as an array of options.
+     * Useful for select inputs.
+     * Optionally, you can filter the options by passing the $only or $except parameters.
+     *
      * @param  self|array<self>  $only
      * @param  self|array<self>  $except
      * @return array<string|int, string>
@@ -79,6 +104,9 @@ trait PowerEnum
     }
 
     /**
+     *  Returns the names of the enum cases.
+     *  Optionally, you can filter the names by passing the $only or $except parameters.
+     *
      * @param  self|array<self>  $only
      * @param  self|array<self>  $except
      * @return array<int, string>
@@ -97,6 +125,9 @@ trait PowerEnum
     }
 
     /**
+     * Returns the values of the enum cases.
+     * Optionally, you can filter the values by passing the $only and $except parameters.
+     *
      * @param  self|array<self>  $only
      * @param  self|array<self>  $except
      * @return array<int, string|int>
@@ -115,6 +146,8 @@ trait PowerEnum
     }
 
     /**
+     * Returns only the given cases.
+     *
      * @param  self|array<self>  $cases
      * @return array<self>
      */
@@ -126,6 +159,8 @@ trait PowerEnum
     }
 
     /**
+     * Returns all cases except the given ones.
+     *
      * @param  self|array<self>  $cases
      * @return array<self>
      */
@@ -136,18 +171,24 @@ trait PowerEnum
         return array_filter(static::cases(), fn (self $enum) => $enum->isNotAny($cases));
     }
 
+    /**
+     * Checks if the current case is the given case.
+     */
     public function is(self $enum): bool
     {
         return $this->value === $enum->value;
     }
 
+    /**
+     * Checks if the current case is NOT the given case.
+     */
     public function isNot(self $enum): bool
     {
         return ! $this->is($enum);
     }
 
     /**
-     * Check if the current value is any of the given values.
+     * Checks if the current case is any of the given cases.
      *
      * @param  self|array<self>  $cases
      */
@@ -157,7 +198,7 @@ trait PowerEnum
     }
 
     /**
-     * Check if the current value is NOT any of the given values.
+     * Checks if the current case is NOT any of the given cases.
      *
      * @param  self|array<self>  $cases
      */
