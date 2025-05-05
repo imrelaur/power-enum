@@ -10,6 +10,7 @@ use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 use Tests\Enums\SocialLink;
 use Tests\Enums\Status;
+use Tests\Enums\Type;
 use ValueError;
 
 class PowerEnumTest extends TestCase
@@ -384,5 +385,25 @@ class PowerEnumTest extends TestCase
 
         self::assertFalse($enum->isNotAny([Status::Published, Status::Draft]));
         self::assertTrue($enum->isNotAny([Status::Published, Status::Hidden]));
+    }
+
+    /*
+     * String Manipulation
+     */
+
+    #[Test]
+    public function it_lower_cases_the_name()
+    {
+        $enum = Type::Admin;
+
+        self::assertSame('admin', $enum->toLower());
+    }
+
+    #[Test]
+    public function it_upper_cases_the_name()
+    {
+        $enum = Type::Admin;
+
+        self::assertSame('ADMIN', $enum->toUpper());
     }
 }

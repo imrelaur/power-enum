@@ -165,4 +165,20 @@ trait PowerEnum
     {
         return ! in_array($this, is_array($cases) ? $cases : func_get_args());
     }
+
+    /**
+     * Converts the enum name to lowercased string.
+     */
+    public function toLower(): string
+    {
+        return strtolower($this->name);
+    }
+
+    /**
+     * Converts the enum name to uppercased string.
+     */
+    public function toUpper(): string
+    {
+        return strtoupper($this->name);
+    }
 }

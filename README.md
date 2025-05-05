@@ -32,6 +32,8 @@ Table of Contents
     * [isNot](#isnot)
     * [isAny](#isany)
     * [isNotAny](#isnotany)
+    * [toLower](#tolower)
+    * [toUpper](#toupper)
 
 ## Install
 
@@ -300,4 +302,41 @@ Status::Published->isNotAny(Status::Draft, Status::Hidden); // true
 
 Status::Published->isNotAny([Status::Draft, Status::Hidden]); // true
 Status::Published->isNotAny([Status::Published, Status::Hidden]); // false
+```
+
+### toLower
+
+Converts the enum name to a lowercased string. Useful when you have int based enums, and you want to convert non-lowercased enum name to a lowercased string as if they were string based enums.
+
+```php
+Type::Admin->toLower(); // 'admin'
+Type::USER->toLower(); // 'user'
+```
+
+#### Example: In a Resource
+
+When using the enum in a resource, you can use the `toLower` method to convert the enum name to a lowercased string. This is useful when you want to display the enum name in a more readable format.
+
+```php
+class UserResource
+{
+    function toArray(Request $request): array
+    {
+        return [
+            'id' => $this->id,
+            'type' => Type::Admin->toLower(), // Returns 'admin' instead of an integer. Readable and easier to understand.
+            'name' => $this->name,
+            'email' => $this->email,
+        ];
+    }
+}
+```
+
+### toUpper
+
+Converts the enum name to a uppercased string.
+
+```php
+Type::Admin->toUpper(); // 'ADMIN'
+Type::user->toUpper(); // 'USER'
 ```
