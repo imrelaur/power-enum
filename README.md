@@ -323,7 +323,7 @@ Type::User->toLower(); // 'user'
 
 #### Example: In a Resource
 
-When using the enum in a resource, you can use the `toLower` method to convert the enum name to a lowercased string. This is useful when you want to display the enum name in a more readable format.
+When using the enum in a resource, you can use the `toLower` method to convert the enum name to a lowercased string. This is useful when you want to display the value in a more readable format and instead of an integer.
 
 ```php
 class UserResource extends JsonResource
@@ -332,7 +332,7 @@ class UserResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'type' => Type::ADMIN->toLower(), // Return 'admin' instead of an integer.
+            'type' => Type::ADMIN->toLower(),
             'name' => $this->name,
             'email' => $this->email,
         ];
