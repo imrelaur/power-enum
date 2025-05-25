@@ -13,7 +13,7 @@ trait PowerEnum
 {
     /**
      * Returns the enum case from the enum name.
-     * When the name is not valid, it returns null.
+     * When the name is not valid, then it returns null.
      */
     public static function tryFromName(string $name): ?self
     {
@@ -75,8 +75,7 @@ trait PowerEnum
 
     /**
      * Returns the enum cases as an array of options.
-     * Useful for select inputs.
-     * Optionally, you can filter the options by passing the $only or $except parameters.
+     * Optionally, you can filter the options by passing in the only or except arguments.
      *
      * @param  self|array<self>  $only
      * @param  self|array<self>  $except
@@ -105,7 +104,7 @@ trait PowerEnum
 
     /**
      *  Returns the names of the enum cases.
-     *  Optionally, you can filter the names by passing the $only or $except parameters.
+     *  Optionally, you can filter the names by passing in the only or except arguments.
      *
      * @param  self|array<self>  $only
      * @param  self|array<self>  $except
@@ -126,7 +125,7 @@ trait PowerEnum
 
     /**
      * Returns the values of the enum cases.
-     * Optionally, you can filter the values by passing the $only and $except parameters.
+     * Optionally, you can filter the values by passing in the only or except arguments.
      *
      * @param  self|array<self>  $only
      * @param  self|array<self>  $except
