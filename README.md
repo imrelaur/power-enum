@@ -2,7 +2,7 @@
 
 Laravel Power Enum is a package that provides a powerful and flexible way to work with PHP enums in Laravel applications. It extends the functionality of PHP enums by adding useful methods and features, making it easier to manage and manipulate enum values.
 
-Works with [Laravel](https://laravel.com/) and [Filament PHP](https://filamentphp.com/). 
+Works with [Laravel](https://laravel.com/) and [Filament PHP](https://filamentphp.com/).
 
 [![Latest Stable Version](https://poser.pugx.org/imrelaur/power-enum/v/stable)](https://packagist.org/packages/imrelaur/power-enum)
 [![License](https://poser.pugx.org/imrelaur/power-enum/license)](https://packagist.org/packages/imrelaur/power-enum)
@@ -313,11 +313,11 @@ enum Type: int
 {
     use PowerEnum;
 
-    case ADMIN = 1;
+    case Admin = 1;
     case User = 2;
 }
 
-Type::ADMIN->toLower(); // 'admin'
+Type::Admin->toLower(); // 'admin'
 Type::User->toLower(); // 'user'
 ```
 
@@ -332,9 +332,8 @@ class UserResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'type' => Type::ADMIN->toLower(),
             'name' => $this->name,
-            'email' => $this->email,
+            'type' => Type::Admin->toLower(), // admin
         ];
     }
 }
@@ -345,6 +344,6 @@ class UserResource extends JsonResource
 Converts the enum name to a uppercased string.
 
 ```php
-Type::ADMIN->toUpper(); // 'ADMIN'
+Type::Admin->toUpper(); // 'ADMIN'
 Type::User->toUpper(); // 'USER'
 ```
