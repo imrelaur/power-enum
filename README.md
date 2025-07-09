@@ -34,6 +34,7 @@ Table of Contents
     * [isNotAny](#isnotany)
     * [toLower](#tolower)
     * [toUpper](#toupper)
+* [Testing](#testing)
 
 ## Install
 
@@ -346,4 +347,10 @@ Converts the enum name to a uppercased string.
 ```php
 Type::Admin->toUpper(); // 'ADMIN'
 Type::User->toUpper(); // 'USER'
+```
+
+# Testing
+
+```
+composer test
 ```
