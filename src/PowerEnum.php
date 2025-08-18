@@ -74,6 +74,22 @@ trait PowerEnum
     }
 
     /**
+     * Returns the enum cases as an array of mapped values.
+     * Each mapped value is an associative array with 'value' and 'label' keys.
+     *
+     * @return array{value: int|string, label: string}[]
+     */
+    public static function mapped(): array
+    {
+        $isLabeled = method_exists(static::class, 'getLabel');
+
+        return array_map(fn (self $enum) => [
+            'value' => $enum->value,
+            'label' => $isLabeled ? $enum->getLabel() : Str::headline($enum->name),
+        ], static::cases());
+    }
+
+    /**
      * Returns the enum cases as an array of options.
      * Optionally, you can filter the options by passing in the only or except arguments.
      *

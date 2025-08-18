@@ -26,6 +26,7 @@ Table of Contents
     * [names](#names)
     * [values](#values)
     * [options](#options)
+    * [mapped](#mapped)
     * [only](#only)
     * [except](#except)
     * [is](#is)
@@ -239,6 +240,18 @@ class PostResource extends Resource
             ]);
     }
 }
+```
+
+### mapped
+
+Returns an array of arrays with `value` and `label` keys, where `value` is the enum value and `label` is the enum name or label.
+
+When `getLabel` method is implemented, it will be used to get the label for the enum value. Otherwise, the name of the
+enum will be converted to a headline format, using `Str::headline` function
+from [Laravel String helper class](https://laravel.com/docs/strings#method-str-headline).
+
+```php
+Status::mapped(); // [['value' => 'published', 'label' => 'Published'], ...]
 ```
 
 ### only

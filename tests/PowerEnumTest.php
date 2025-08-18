@@ -93,6 +93,23 @@ class PowerEnumTest extends TestCase
     }
 
     /*
+     * Mapped
+     */
+
+    #[Test]
+    public function it_returns_mapped_array()
+    {
+        $expected = Arr::map(Status::cases(), fn ($case) => [
+            'value' => $case->value,
+            'label' => $case->getLabel(),
+        ]);
+        $result = Status::mapped();
+
+        self::assertCount(Status::count(), $result);
+        self::assertSame($expected, $result);
+    }
+
+    /*
      * Options
      */
 
