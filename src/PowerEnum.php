@@ -15,9 +15,9 @@ trait PowerEnum
      * Returns the enum case from the enum name.
      * When the name is not valid, then it returns null.
      */
-    public static function tryFromName(string $name): ?self
+    public static function tryFromName(string $name): ?static
     {
-        $constant = self::class.'::'.$name;
+        $constant = static::class.'::'.$name;
 
         return defined($constant) ? constant($constant) : null;
     }
@@ -27,9 +27,9 @@ trait PowerEnum
      *
      * @throws ValueError
      */
-    public static function fromName(string $name): self
+    public static function fromName(string $name): static
     {
-        $result = self::tryFromName($name);
+        $result = static::tryFromName($name);
 
         if ($result === null) {
             throw new ValueError('"'.$name.'" is not a valid backing name for enum "'.static::class.'"');
@@ -42,7 +42,7 @@ trait PowerEnum
      * Returns the enum case from the request.
      * Optionally, you can provide a default enum case.
      */
-    public static function fromRequest(string $key, ?self $default = null): ?self
+    public static function fromRequest(string $key, ?self $default = null): ?static
     {
         return request()->enum($key, static::class) ?? $default;
     }
@@ -60,13 +60,13 @@ trait PowerEnum
      */
     public static function count(): int
     {
-        return count(self::cases());
+        return count(static::cases());
     }
 
     /**
      * Returns the enum cases as a collection.
      *
-     * @return Collection<self>
+     * @return Collection<static>
      */
     public static function collect(): Collection
     {
@@ -93,8 +93,8 @@ trait PowerEnum
      * Returns the enum cases as an array of options.
      * Optionally, you can filter the options by passing in the only or except arguments.
      *
-     * @param  self|array<self>  $only
-     * @param  self|array<self>  $except
+     * @param  static|array<static>  $only
+     * @param  static|array<static>  $except
      * @return array<string|int, string>
      */
     public static function options(self|array $only = [], self|array $except = []): array
@@ -122,8 +122,8 @@ trait PowerEnum
      *  Returns the names of the enum cases.
      *  Optionally, you can filter the names by passing in the only or except arguments.
      *
-     * @param  self|array<self>  $only
-     * @param  self|array<self>  $except
+     * @param  static|array<static>  $only
+     * @param  static|array<static>  $except
      * @return array<int, string>
      */
     public static function names(self|array $only = [], self|array $except = []): array
@@ -143,8 +143,8 @@ trait PowerEnum
      * Returns the values of the enum cases.
      * Optionally, you can filter the values by passing in the only or except arguments.
      *
-     * @param  self|array<self>  $only
-     * @param  self|array<self>  $except
+     * @param  static|array<static>  $only
+     * @param  static|array<static>  $except
      * @return array<int, string|int>
      */
     public static function values(self|array $only = [], self|array $except = []): array
@@ -163,8 +163,8 @@ trait PowerEnum
     /**
      * Returns only the given cases.
      *
-     * @param  self|array<self>  $cases
-     * @return array<self>
+     * @param  static|array<static>  $cases
+     * @return array<static>
      */
     public static function only(self|array $cases): array
     {
@@ -176,8 +176,8 @@ trait PowerEnum
     /**
      * Returns all cases except the given ones.
      *
-     * @param  self|array<self>  $cases
-     * @return array<self>
+     * @param  static|array<static>  $cases
+     * @return array<static>
      */
     public static function except(self|array $cases): array
     {
@@ -205,7 +205,7 @@ trait PowerEnum
     /**
      * Checks if the current case is any of the given cases.
      *
-     * @param  self|array<self>  $cases
+     * @param  static|array<static>  $cases
      */
     public function isAny(self|array $cases): bool
     {
@@ -215,7 +215,7 @@ trait PowerEnum
     /**
      * Checks if the current case is NOT any of the given cases.
      *
-     * @param  self|array<self>  $cases
+     * @param  static|array<static>  $cases
      */
     public function isNotAny(self|array $cases): bool
     {
