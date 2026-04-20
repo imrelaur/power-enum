@@ -6,8 +6,8 @@ Works with [Laravel](https://laravel.com/) and [Filament PHP](https://filamentph
 
 [![Latest Stable Version](https://poser.pugx.org/imrelaur/power-enum/v/stable)](https://packagist.org/packages/imrelaur/power-enum)
 [![License](https://poser.pugx.org/imrelaur/power-enum/license)](https://packagist.org/packages/imrelaur/power-enum)
-[![PHP Version](https://img.shields.io/badge/PHP-%3E%3D%208.2-4F5B93.svg)](https://www.php.net/)
-[![Laravel Version](https://img.shields.io/badge/Laravel-%3E%3D%2010.0-FF2D20.svg)](https://laravel.com/)
+[![PHP Version](https://img.shields.io/badge/PHP-%3E%3D%208.3-4F5B93.svg)](https://www.php.net/)
+[![Laravel Version](https://img.shields.io/badge/Laravel-%3E%3D%2011.0-FF2D20.svg)](https://laravel.com/)
 
 Table of Contents
 =================
